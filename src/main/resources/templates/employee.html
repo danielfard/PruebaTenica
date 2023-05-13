@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Information</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Employee Information</h1>
+    <form th:action="@{/employee}" method="get" class="form-inline mb-3">
+        <div class="form-group">
+            <label for="employeeId">Employee ID:</label>
+            <input type="number" id="employeeId" name="employeeId" th:value="${employeeId}" class="form-control mx-sm-3" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Salary</th>
+            <th>Annual Salary</th>
+            <th>Image</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.id}"></td>
+            <td th:text="${employee.employee_name}"></td>
+            <td th:text="${employee.employee_salary}"></td>
+            <td th:text="${employeeBusiness.calculateAnnualSalary(employee.employee_salary)}"></td>
+            <td>
+                <img th:if="${employee.profile_image != ''}" th:src="${employee.profile_image}" alt="Profile Image" width="100" height="100" />
+                <img th:unless="${employee.profile_image != ''}" src="https://electronicssoftware.net/wp-content/uploads/user.png" alt="Default Profile Image" width="100" height="100" />
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
